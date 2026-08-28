@@ -1,0 +1,170 @@
+{
+  "generatedAt": "2026-08-27T15:05:02.376Z",
+  "machine": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "osRelease": "24.6.0",
+    "cpu": "Apple M4 Pro",
+    "logicalCpus": 14
+  },
+  "fixture": "<REPRODUCTION_ROOT>/fixture-noisy-precise",
+  "fixtureMetadata": {
+    "blueprintSha256": "0a956aa75a800abdb30722dd0f764525ca66d51cac373fbef2b07613b933e4d6",
+    "declarationMode": "blueprint",
+    "filesystemProfile": "noisy",
+    "blueprintWorkspaceCount": 6833,
+    "workspaceCount": 6833,
+    "patternCount": 784,
+    "trailingStarPatternCount": 744,
+    "literalPatternCount": 40,
+    "recursivePatternCount": 0,
+    "dependencyEdges": 87630,
+    "noise": {
+      "profile": "afm-like-non-project-noise-v2",
+      "workspaceRoots": 6832,
+      "directoryCount": 75152,
+      "dummyFileCount": 300608,
+      "directoriesPerWorkspace": 11,
+      "dummyFilesPerWorkspace": 44
+    },
+    "workspaceFileSha256": "ca056ca270cd03b72b2fe5d68ad6d4ef616c9d2a5739f1efbecf58410cd64a77"
+  },
+  "iterations": 10,
+  "command": "pnpm install --lockfile-only --frozen-lockfile --offline --reporter=ndjson",
+  "cachePolicy": "Fresh pnpm process per run with warm OS filesystem cache; no persistent workspace-project-set cache.",
+  "binaries": {
+    "baseline": {
+      "path": "<REPRODUCTION_ROOT>/build/bin/pnpm-main-c4fdd5f",
+      "sha256": "9c71df4fd15908602de0849c8944408edb3e7ba284133c7c576f3daee6b4e7a4",
+      "version": "12.0.0",
+      "commit": "c4fdd5fbb4cccbcc2941323fe56e2670f1612911",
+      "status": "",
+      "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "candidate": {
+      "path": "<REPRODUCTION_ROOT>/build/bin/pnpm-candidate-c4fdd5f",
+      "sha256": "abcde2dad7bdba214e0bf4af8168aacd28152b1f796c0c3bebdeba92dc183671",
+      "version": "12.0.0",
+      "commit": "c4fdd5fbb4cccbcc2941323fe56e2670f1612911",
+      "status": "M pnpm/crates/workspace/src/projects.rs\n M pnpm/crates/workspace/src/projects/tests.rs\n?? .changeset/quick-mice-discover.md",
+      "diffSha256": "21acf0b332ead2a1f53112a1089678c2a9a293beb32191e046fef65924bfc327"
+    }
+  },
+  "validation": {
+    "projectCount": 6833,
+    "projectSetSha256": "75208ec77c45cccfe2da8eb30991b615b3359a2ae4d36bef1a45441a69797570",
+    "baselineEnumerationMs": 3667.788833,
+    "candidateEnumerationMs": 1196.961042,
+    "lockfileSha256": "1ac33b9511f13d144ff1c89fc197bc258feb311d0cf82d10ccfac57c1fa367e9"
+  },
+  "warmups": [
+    {
+      "variant": "baseline",
+      "iteration": 0,
+      "order": "warmup",
+      "scopeMs": 3623,
+      "wallMs": 4225.839292,
+      "selected": 6833,
+      "total": 6833,
+      "eventCount": 8,
+      "logFile": "logs/warmup-baseline.ndjson",
+      "lockfileSha256": "1ac33b9511f13d144ff1c89fc197bc258feb311d0cf82d10ccfac57c1fa367e9"
+    },
+    {
+      "variant": "candidate",
+      "iteration": 0,
+      "order": "warmup",
+      "scopeMs": 1024,
+      "wallMs": 1656.803584,
+      "selected": 6833,
+      "total": 6833,
+      "eventCount": 8,
+      "logFile": "logs/warmup-candidate.ndjson",
+      "lockfileSha256": "1ac33b9511f13d144ff1c89fc197bc258feb311d0cf82d10ccfac57c1fa367e9"
+    }
+  ],
+  "metrics": {
+    "scopeMs": {
+      "baseline": {
+        "chronological": [
+          3628,
+          2921,
+          3398,
+          3659,
+          3697,
+          3427,
+          3656,
+          3715,
+          3648,
+          2871
+        ],
+        "median": 3638,
+        "mean": 3462,
+        "standardDeviation": 300.85112597429315,
+        "min": 2871,
+        "max": 3715
+      },
+      "candidate": {
+        "chronological": [
+          1015,
+          985,
+          1021,
+          1000,
+          1011,
+          1021,
+          1001,
+          1003,
+          993,
+          873
+        ],
+        "median": 1002,
+        "mean": 992.3,
+        "standardDeviation": 41.28934487249707,
+        "min": 873,
+        "max": 1021
+      },
+      "deltaPercent": -72.45739417262233
+    },
+    "wallMs": {
+      "baseline": {
+        "chronological": [
+          4255.880542,
+          3497.840542,
+          4035.755917,
+          4297.891291,
+          4330.743459,
+          4050.138167,
+          4293.967458,
+          4340.652459,
+          4276.324333,
+          3448.760375
+        ],
+        "median": 4266.1024375,
+        "mean": 4082.795454299999,
+        "standardDeviation": 321.51082472989305,
+        "min": 3448.760375,
+        "max": 4340.652459
+      },
+      "candidate": {
+        "chronological": [
+          1650.548041,
+          1608.795791,
+          1657.1795,
+          1614.579583,
+          1645.325208,
+          1665.462417,
+          1626.9745,
+          1640.417625,
+          1622.285458,
+          1444.477458
+        ],
+        "median": 1633.6960625000002,
+        "mean": 1617.6045581,
+        "standardDeviation": 60.33252727925606,
+        "min": 1444.477458,
+        "max": 1665.462417
+      },
+      "deltaPercent": -61.70518438236634
+    }
+  }
+}

@@ -1,0 +1,10 @@
+/.work/
+/build/
+/fixture/
+/fixture-*/
+/pnpm/
+/pnpm-candidate/
+/tools/
+/RESULTS.md
+/results/final-main-c4fdd5f/
+.DS_Store

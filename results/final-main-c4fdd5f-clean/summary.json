@@ -1,0 +1,158 @@
+{
+  "generatedAt": "2026-08-27T12:49:26.302Z",
+  "machine": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "osRelease": "24.6.0",
+    "cpu": "Apple M4 Pro",
+    "logicalCpus": 14
+  },
+  "fixture": "<REPRODUCTION_ROOT>/fixture",
+  "fixtureMetadata": {
+    "blueprintSha256": "0a956aa75a800abdb30722dd0f764525ca66d51cac373fbef2b07613b933e4d6",
+    "workspaceCount": 6833,
+    "patternCount": 784,
+    "trailingStarPatternCount": 744,
+    "literalPatternCount": 40,
+    "dependencyEdges": 87630,
+    "workspaceFileSha256": "ca056ca270cd03b72b2fe5d68ad6d4ef616c9d2a5739f1efbecf58410cd64a77"
+  },
+  "iterations": 10,
+  "command": "pnpm install --lockfile-only --frozen-lockfile --offline --reporter=ndjson",
+  "cachePolicy": "Fresh pnpm process per run with warm OS filesystem cache; no persistent workspace-project-set cache.",
+  "binaries": {
+    "baseline": {
+      "path": "<REPRODUCTION_ROOT>/build/bin/pnpm-main-c4fdd5f",
+      "sha256": "9c71df4fd15908602de0849c8944408edb3e7ba284133c7c576f3daee6b4e7a4",
+      "version": "12.0.0",
+      "commit": "c4fdd5fbb4cccbcc2941323fe56e2670f1612911",
+      "status": "",
+      "diffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "candidate": {
+      "path": "<REPRODUCTION_ROOT>/build/bin/pnpm-candidate-c4fdd5f",
+      "sha256": "abcde2dad7bdba214e0bf4af8168aacd28152b1f796c0c3bebdeba92dc183671",
+      "version": "12.0.0",
+      "commit": "c4fdd5fbb4cccbcc2941323fe56e2670f1612911",
+      "status": "M pnpm/crates/workspace/src/projects.rs\n M pnpm/crates/workspace/src/projects/tests.rs\n?? .changeset/quick-mice-discover.md",
+      "diffSha256": "21acf0b332ead2a1f53112a1089678c2a9a293beb32191e046fef65924bfc327"
+    }
+  },
+  "validation": {
+    "projectCount": 6833,
+    "projectSetSha256": "75208ec77c45cccfe2da8eb30991b615b3359a2ae4d36bef1a45441a69797570",
+    "baselineEnumerationMs": 2609.9845,
+    "candidateEnumerationMs": 1422.924583,
+    "lockfileSha256": "1ac33b9511f13d144ff1c89fc197bc258feb311d0cf82d10ccfac57c1fa367e9"
+  },
+  "warmups": [
+    {
+      "variant": "baseline",
+      "iteration": 0,
+      "order": "warmup",
+      "scopeMs": 2106,
+      "wallMs": 2725.259416,
+      "selected": 6833,
+      "total": 6833,
+      "eventCount": 8,
+      "logFile": "logs/warmup-baseline.ndjson",
+      "lockfileSha256": "1ac33b9511f13d144ff1c89fc197bc258feb311d0cf82d10ccfac57c1fa367e9"
+    },
+    {
+      "variant": "candidate",
+      "iteration": 0,
+      "order": "warmup",
+      "scopeMs": 973,
+      "wallMs": 1601.960834,
+      "selected": 6833,
+      "total": 6833,
+      "eventCount": 8,
+      "logFile": "logs/warmup-candidate.ndjson",
+      "lockfileSha256": "1ac33b9511f13d144ff1c89fc197bc258feb311d0cf82d10ccfac57c1fa367e9"
+    }
+  ],
+  "metrics": {
+    "scopeMs": {
+      "baseline": {
+        "chronological": [
+          2771,
+          2683,
+          2147,
+          2188,
+          2233,
+          1762,
+          1722,
+          2146,
+          2115,
+          2106
+        ],
+        "median": 2146.5,
+        "mean": 2187.3,
+        "standardDeviation": 316.39597026510944,
+        "min": 1722,
+        "max": 2771
+      },
+      "candidate": {
+        "chronological": [
+          931,
+          1997,
+          1002,
+          1158,
+          1033,
+          971,
+          957,
+          997,
+          1025,
+          991
+        ],
+        "median": 999.5,
+        "mean": 1106.2,
+        "standardDeviation": 302.5636461969614,
+        "min": 931,
+        "max": 1997
+      },
+      "deltaPercent": -53.43582576286979
+    },
+    "wallMs": {
+      "baseline": {
+        "chronological": [
+          3372.409541,
+          3316.53525,
+          2776.527583,
+          2821.132166,
+          2856.198125,
+          2351.944209,
+          2323.652459,
+          2782.125875,
+          2729.08425,
+          2720.876042
+        ],
+        "median": 2779.3267290000003,
+        "mean": 2805.0485500000004,
+        "standardDeviation": 322.12300770669947,
+        "min": 2323.652459,
+        "max": 3372.409541
+      },
+      "candidate": {
+        "chronological": [
+          1544.559125,
+          2605.067042,
+          1624.333666,
+          1801.746167,
+          1653.081416,
+          1588.767292,
+          1579.730667,
+          1616.508958,
+          1657.499875,
+          1618.680583
+        ],
+        "median": 1621.5071245,
+        "mean": 1728.9974791,
+        "standardDeviation": 299.2333534899414,
+        "min": 1544.559125,
+        "max": 2605.067042
+      },
+      "deltaPercent": -41.658276172394565
+    }
+  }
+}
