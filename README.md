@@ -34,9 +34,24 @@ yarn install --mode update-lockfile
 pnpm install --lockfile-only --trust-lockfile --offline --ignore-scripts
 ```
 
-## Compare resolution performance
+## Benchmark
 
-Place the pnpm binaries being compared at `.bin/pnpm-baseline` and `.bin/pnpm-candidate`, then run:
+This fixture is large enough to exercise both dependency resolution and the surrounding workspace
+work: thousands of nested projects, hundreds of precise workspace patterns, and tens of thousands
+of shared internal dependency edges. On the pinned baseline, Yarn is substantially faster than
+pnpm for the same warm, non-noop lockfile update.
+
+- Yarn: 4.18.0
+- pnpm: main at `e972cb50126b2a60bd48b90278d5fbb8fbed32ae`
+- Runs: five per tool in alternating order
+- Machine: Apple M4 Pro, 14 logical CPUs, 48 GB memory, macOS 15.7.9
+
+| Tool | Median resolution | vs pnpm | Median wall time | vs pnpm |
+| --- | ---: | ---: | ---: | ---: |
+| Yarn 4.18.0 | 530 ms | -32.91% | 2,767.50 ms | -65.87% |
+| pnpm main | 790 ms | — | 8,109.44 ms | — |
+
+To reproduce the comparison, place the pinned pnpm binary at `.bin/pnpm-baseline`, then run:
 
 ```sh
 node benchmark-resolution.mjs --iterations 5
@@ -52,14 +67,13 @@ no-op install to warm filesystem caches, changes one dependency from `workspace:
 - individual run values and medians.
 
 The runner verifies that both package managers discover all 6,833 projects, every timed run changes
-its lockfile, repeated output is deterministic, and the pnpm baseline and candidate lockfiles are
-byte-identical.
+its lockfile, and repeated output is deterministic.
 
 ## Repository contents
 
 - `blueprint.json`: canonical workspace paths, patterns, names, and dependency graph;
 - `generate-workspace.mjs`: materializes the blueprint in the repository root;
-- `benchmark-resolution.mjs`: runs the warm, non-noop Yarn/baseline/candidate comparison.
+- `benchmark-resolution.mjs`: runs the warm, non-noop Yarn/pnpm comparison.
 
 The original workspace-discovery-specific runner and archived results remain available from the
 [initial reproduction commit](https://github.com/jamenh/pnpm-workspace-performance-reproduction/tree/7861772127b1ed73433fac4929bb17753e2c3f2b).

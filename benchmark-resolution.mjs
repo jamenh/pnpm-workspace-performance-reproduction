@@ -10,8 +10,7 @@ const root = dirname(fileURLToPath(import.meta.url))
 const options = parseArguments(process.argv.slice(2))
 const engines = [
   { name: 'yarn', command: options.yarn, kind: 'yarn' },
-  { name: 'pnpm-baseline', command: options.baseline, kind: 'pnpm' },
-  { name: 'pnpm-candidate', command: options.candidate, kind: 'pnpm' },
+  { name: 'pnpm-baseline', command: options.pnpm, kind: 'pnpm' },
 ]
 const manifestPath = join(root, 'package.json')
 const pnpmLockfilePath = join(root, 'pnpm-lock.yaml')
@@ -68,11 +67,6 @@ function main() {
       }
     }
 
-    const baselineHash = lockfileHashes.get('pnpm-baseline')
-    const candidateHash = lockfileHashes.get('pnpm-candidate')
-    if (baselineHash !== candidateHash) {
-      throw new Error('pnpm baseline and candidate lockfiles are not byte-identical')
-    }
     renderSummary(results)
   } finally {
     writeFileSync(manifestPath, originalManifest)
@@ -84,20 +78,18 @@ function main() {
 function parseArguments(args) {
   const values = {
     iterations: 5,
-    baseline: join(root, '.bin', executableName('pnpm-baseline')),
-    candidate: join(root, '.bin', executableName('pnpm-candidate')),
+    pnpm: join(root, '.bin', executableName('pnpm-baseline')),
     yarn: 'yarn',
   }
   for (let index = 0; index < args.length; index += 1) {
     const argument = args[index]
     if (argument === '--iterations') values.iterations = Number(args[++index])
-    else if (argument === '--pnpm-baseline') values.baseline = absoluteCommand(args[++index])
-    else if (argument === '--pnpm-candidate') values.candidate = absoluteCommand(args[++index])
+    else if (argument === '--pnpm') values.pnpm = absoluteCommand(args[++index])
     else if (argument === '--yarn') values.yarn = absoluteCommand(args[++index])
     else if (argument === '--help' || argument === '-h') {
       console.log(
         'usage: node benchmark-resolution.mjs [--iterations N] ' +
-          '[--pnpm-baseline PATH] [--pnpm-candidate PATH] [--yarn PATH]',
+          '[--pnpm PATH] [--yarn PATH]',
       )
       process.exit(0)
     } else throw new Error(`unknown argument: ${argument}`)
