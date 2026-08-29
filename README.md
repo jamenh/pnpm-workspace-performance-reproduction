@@ -19,6 +19,60 @@ Its noisy variants add 11 nested directories and 44 ordinary files beneath every
 workspace without adding any package manifests. The precise and recursive variants therefore
 discover exactly the same project set while traversing very different search domains.
 
+The blueprint also captures the resolver-cache workload: its 87,630 `workspace:*` edges repeatedly
+target a much smaller set of shared workspace packages. The most widely shared package has 2,633
+consumers.
+
+## Resolver-cache benchmark
+
+Generate the combined workspace directly in this repository:
+
+```sh
+node generate-workspace.mjs
+```
+
+After generation, Yarn and pnpm can be run directly from the repository root:
+
+```sh
+yarn install --mode update-lockfile
+pnpm install --lockfile-only --trust-lockfile --offline --ignore-scripts
+```
+
+There is deliberately no `pnpmfile.cjs`: both package managers resolve the same manifests without
+package-manager-specific hooks.
+
+To run the warm, non-noop resolution comparison, place the frozen baseline and candidate pnpm
+binaries in `.bin/pnpm-baseline` and `.bin/pnpm-candidate`, then run:
+
+```sh
+node benchmark-resolution.mjs --iterations 5
+```
+
+Before every timed run, the benchmark restores the original manifest and lockfile, performs an
+untimed no-op install to warm filesystem caches, changes one `workspace:*` dependency to
+`workspace:^`, and then measures the resulting lockfile update. It reports Yarn's `Resolution
+step`, pnpm's `resolution_started` to `resolution_done` interval, and process wall time. The pnpm
+baseline and candidate must produce byte-identical lockfiles.
+
+### Pinned resolver-cache comparison
+
+- pnpm baseline: `e972cb50126b2a60bd48b90278d5fbb8fbed32ae`
+- pnpm candidate: `c11bbf0a426b1aa8e81b4588c019c69f406fe9f4`
+- Yarn: 4.18.0
+- Runs: five per engine in rotating order, each immediately preceded by its own no-op warm-up
+- Mutation: one root dependency from `workspace:*` to `workspace:^`
+- Machine: Apple M4 Pro, 14 logical CPUs, 48 GB memory, macOS 15.7.9
+
+| Engine | Median resolution | vs pnpm baseline | Median wall | vs pnpm baseline |
+| --- | ---: | ---: | ---: | ---: |
+| Yarn 4.18.0 | 536 ms | -39.78% | 2,797.23 ms | -72.22% |
+| pnpm baseline | 890 ms | — | 10,068.61 ms | — |
+| pnpm candidate | 517 ms | -41.91% | 9,551.44 ms | -5.14% |
+
+The resolution interval is the primary metric. Wall time additionally contains workspace
+discovery and pnpm's post-resolution peer-dependency reporting. All candidate and baseline runs
+produced byte-identical pnpm lockfiles.
+
 ## One-command reproduction
 
 Prerequisites are Git, Node.js, and the Rust toolchain required by pnpm. Then run:
@@ -74,6 +128,8 @@ every run. Archived summaries, samples, raw NDJSON, and machine-readable results
 
 ## Repository contents
 
+- `generate-workspace.mjs`: generates the combined fixture in the repository root;
+- `benchmark-resolution.mjs`: runs the warm, non-noop Yarn/baseline/candidate comparison;
 - `reproduce.mjs`: the single self-contained generator, builder, validator, and benchmark runner;
 - `blueprint.json`: the anonymized workspace topology and dependency graph;
 - `results/`: the retained benchmark evidence used in the PR.
