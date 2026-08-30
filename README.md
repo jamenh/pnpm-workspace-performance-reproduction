@@ -9,7 +9,7 @@ work. It combines two independent characteristics that commonly occur in large m
 
 The topology is anonymized and contains no source code or private package names.
 
-The generated workspace has:
+The committed workspace has:
 
 - 6,833 projects;
 - 784 precise pnpm workspace patterns across 17 package groups;
@@ -26,19 +26,12 @@ Yarn intentionally uses the broad `packages/**` workspace declaration. pnpm uses
 precise declarations; `pnpm-workspace.yaml` also shows the equivalent broad declaration as a
 commented-out slow alternative.
 
-## Generate the workspace
+## Run the workspace
 
-```sh
-node generate-workspace.mjs
-```
-
-The script reads `blueprint.json` and generates the complete workspace directly in this repository.
-There is only one generated workspace: the repository root. Generated manifests, workspace trees,
-package-manager state, stores, and local binaries are ignored by Git; the lockfiles are checked in
-to provide deterministic benchmark inputs. There is deliberately no `pnpmfile.cjs`, so Yarn and
-pnpm resolve the same manifests without a package-manager-specific hook.
-
-After generation, either package manager can be run directly from the repository root:
+The complete project tree, workspace declarations, and lockfiles are checked in. No generation
+step is required: after cloning, either package manager can be run directly from the repository
+root. There is deliberately no `pnpmfile.cjs`, so Yarn and pnpm resolve the same manifests without
+a package-manager-specific hook.
 
 ```sh
 yarn install --mode update-lockfile
@@ -62,29 +55,21 @@ pnpm for the same warm, non-noop lockfile update.
 | Yarn 4.18.0 | 497 ms | -33.29% | 4,789.65 ms | -51.25% |
 | pnpm main | 745 ms | — | 9,824.19 ms | — |
 
-To reproduce the comparison, place the pinned pnpm binary at `.bin/pnpm-baseline`, then run:
+To measure workspace discovery with any pnpm build, run it directly against the checked-in
+workspace:
 
 ```sh
-node benchmark-resolution.mjs --iterations 5
+pnpm install --lockfile-only --frozen-lockfile --offline --ignore-scripts --reporter=ndjson
 ```
 
-Before each timed run, the runner restores the original manifest and lockfile, performs an untimed
-no-op install to warm filesystem caches, changes one dependency from `workspace:*` to
-`workspace:^`, and updates the lockfile. It reports:
-
-- Yarn's `Resolution step`;
-- pnpm's `resolution_started` to `resolution_done` interval;
-- process wall time;
-- individual run values and medians.
-
-The runner verifies that both package managers discover all 6,833 projects, every timed run changes
-its lockfile, and repeated output is deterministic.
+The published resolver comparison used warm, non-noop lockfile updates: before each timed run, the
+original manifest and lockfile were restored, one root dependency was changed from `workspace:*`
+to `workspace:^`, and the lockfile was updated. Both package managers discovered all 6,833
+projects, every timed run changed its lockfile, and repeated output was deterministic.
 
 ## Repository contents
 
-- `blueprint.json`: canonical workspace paths, patterns, names, and dependency graph;
-- `generate-workspace.mjs`: materializes the blueprint in the repository root;
-- `benchmark-resolution.mjs`: runs the warm, non-noop Yarn/pnpm comparison.
-
-The original workspace-discovery-specific runner and archived results remain available from the
-[initial reproduction commit](https://github.com/jamenh/pnpm-workspace-performance-reproduction/tree/7861772127b1ed73433fac4929bb17753e2c3f2b).
+- `packages/`: all 6,832 non-root projects and their non-project directory trees;
+- `package.json`: the root project and Yarn's recursive workspace declaration;
+- `pnpm-workspace.yaml`: pnpm's 784 precise workspace declarations;
+- `pnpm-lock.yaml` and `yarn.lock`: deterministic package-manager inputs.
