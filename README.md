@@ -28,10 +28,9 @@ commented-out slow alternative.
 
 ## Run the workspace
 
-The complete project tree, workspace declarations, and lockfiles are checked in. No generation
-step is required: after cloning, either package manager can be run directly from the repository
-root. There is deliberately no `pnpmfile.cjs`, so Yarn and pnpm resolve the same manifests without
-a package-manager-specific hook.
+The repository contains the complete project tree, workspace declarations, and lockfiles. After
+cloning, run either package manager from the repository root. There is deliberately no
+`pnpmfile.cjs`, so Yarn and pnpm resolve the same manifests without a package-manager-specific hook.
 
 ```sh
 yarn install --mode update-lockfile
