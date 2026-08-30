@@ -1,15 +1,7 @@
 /.bin/
-/.resolver-cache-benchmark-fixture
-/.npmrc
 /.pnpm-store/
 /.yarn/
-/.yarnrc.yml
 /.pnp.*
-/fixture-metadata.json
+/workspace-metadata.json
 /node_modules/
-/package.json
-/pnpm-lock.yaml
-/pnpm-workspace.yaml
-/product-*/
-/yarn.lock
 .DS_Store

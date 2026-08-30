@@ -1,0 +1,14 @@
+{
+  "name": "@synth/pkg-06640",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@synth/pkg-02672": "workspace:*",
+    "@synth/pkg-03284": "workspace:*",
+    "@synth/pkg-03919": "workspace:*",
+    "@synth/pkg-06491": "workspace:*",
+    "@synth/pkg-06508": "workspace:*",
+    "@synth/pkg-06513": "workspace:*",
+    "@synth/pkg-06732": "workspace:*"
+  }
+}

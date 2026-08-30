@@ -1,0 +1,23 @@
+{
+  "name": "@synth/pkg-02343",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@synth/pkg-02311": "workspace:*",
+    "@synth/pkg-02312": "workspace:*",
+    "@synth/pkg-02314": "workspace:*",
+    "@synth/pkg-02336": "workspace:*",
+    "@synth/pkg-02337": "workspace:*",
+    "@synth/pkg-02339": "workspace:*",
+    "@synth/pkg-02342": "workspace:*",
+    "@synth/pkg-02344": "workspace:*",
+    "@synth/pkg-02513": "workspace:*",
+    "@synth/pkg-02514": "workspace:*",
+    "@synth/pkg-03132": "workspace:*",
+    "@synth/pkg-03596": "workspace:*",
+    "@synth/pkg-03599": "workspace:*",
+    "@synth/pkg-03608": "workspace:*",
+    "@synth/pkg-03675": "workspace:*",
+    "@synth/pkg-03706": "workspace:*"
+  }
+}

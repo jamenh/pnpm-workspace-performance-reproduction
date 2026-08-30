@@ -1,0 +1,13 @@
+{
+  "name": "@synth/pkg-00000",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "yarn@4.18.0",
+  "workspaces": [
+    "packages/**"
+  ],
+  "dependencies": {
+    "@synth/pkg-03426": "workspace:*",
+    "@synth/pkg-03446": "workspace:*"
+  }
+}

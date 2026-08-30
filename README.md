@@ -1,6 +1,6 @@
-# pnpm large-workspace performance fixture
+# pnpm large-workspace performance reproduction
 
-This repository provides a deterministic, synthetic large-workspace fixture for pnpm performance
+This repository provides a deterministic, synthetic large workspace for pnpm performance
 work. It combines two independent characteristics that commonly occur in large monorepos:
 
 - a deeply nested project layout with many precise workspace patterns, useful for workspace
@@ -12,9 +12,19 @@ The topology is anonymized and contains no source code or private package names.
 The generated workspace has:
 
 - 6,833 projects;
-- 784 workspace patterns across 17 product-shaped roots;
+- 784 precise pnpm workspace patterns across 17 package groups;
 - 87,630 `workspace:*` dependency edges;
-- a most-shared package with 2,633 consumers.
+- a most-shared package with 2,633 consumers;
+- 75,152 non-project directories and 300,608 ordinary files beneath the projects.
+
+All non-root projects live below `packages/package-00` through `packages/package-16`, and all package
+names use the `@synth` scope. The noise consists of nested `docs`, `examples`, and `stories` trees
+without additional package manifests. It makes recursive directory traversal expensive without
+changing the project set or dependency graph.
+
+Yarn intentionally uses the broad `packages/**` workspace declaration. pnpm uses the original 784
+precise declarations; `pnpm-workspace.yaml` also shows the equivalent broad declaration as a
+commented-out slow alternative.
 
 ## Generate the workspace
 
@@ -23,9 +33,10 @@ node generate-workspace.mjs
 ```
 
 The script reads `blueprint.json` and generates the complete workspace directly in this repository.
-Generated manifests, lockfiles, package-manager state, stores, and local binaries are ignored by
-Git. There is deliberately no `pnpmfile.cjs`, so Yarn and pnpm resolve the same manifests without a
-package-manager-specific hook.
+There is only one generated workspace: the repository root. Generated manifests, workspace trees,
+package-manager state, stores, and local binaries are ignored by Git; the lockfiles are checked in
+to provide deterministic benchmark inputs. There is deliberately no `pnpmfile.cjs`, so Yarn and
+pnpm resolve the same manifests without a package-manager-specific hook.
 
 After generation, either package manager can be run directly from the repository root:
 
@@ -36,7 +47,7 @@ pnpm install --lockfile-only --trust-lockfile --offline --ignore-scripts
 
 ## Benchmark
 
-This fixture is large enough to exercise both dependency resolution and the surrounding workspace
+This workspace is large enough to exercise both dependency resolution and the surrounding workspace
 work: thousands of nested projects, hundreds of precise workspace patterns, and tens of thousands
 of shared internal dependency edges. On the pinned baseline, Yarn is substantially faster than
 pnpm for the same warm, non-noop lockfile update.
@@ -48,8 +59,8 @@ pnpm for the same warm, non-noop lockfile update.
 
 | Tool | Median resolution | vs pnpm | Median wall time | vs pnpm |
 | --- | ---: | ---: | ---: | ---: |
-| Yarn 4.18.0 | 530 ms | -32.91% | 2,767.50 ms | -65.87% |
-| pnpm main | 790 ms | — | 8,109.44 ms | — |
+| Yarn 4.18.0 | 497 ms | -33.29% | 4,789.65 ms | -51.25% |
+| pnpm main | 745 ms | — | 9,824.19 ms | — |
 
 To reproduce the comparison, place the pinned pnpm binary at `.bin/pnpm-baseline`, then run:
 
