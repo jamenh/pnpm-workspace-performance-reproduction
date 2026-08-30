@@ -2,6 +2,5 @@
 /.pnpm-store/
 /.yarn/
 /.pnp.*
-/workspace-metadata.json
 /node_modules/
 .DS_Store
