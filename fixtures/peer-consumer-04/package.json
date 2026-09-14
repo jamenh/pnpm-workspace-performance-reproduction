@@ -1,0 +1,8 @@
+{
+  "name": "@synth/peer-consumer-04",
+  "version": "1.0.0",
+  "private": true,
+  "peerDependencies": {
+    "@synth/pkg-01937": "^2.0.0"
+  }
+}

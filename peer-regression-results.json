@@ -1,0 +1,61 @@
+{
+  "platform": "macOS 15.7.9 arm64",
+  "measurement": "Wall-clock elapsed time; native release executables; warm local store; identical seed restored before every run",
+  "command": "pnpm install --lockfile-only --trust-lockfile --offline --ignore-scripts --reporter=append-only",
+  "manifestChange": {
+    "file": "package.json",
+    "dependency": "@synth/pkg-03426",
+    "from": "workspace:*",
+    "to": "workspace:^"
+  },
+  "seedLockfileSha256": "aeeefc946b8713db2eafdcb0297fc2938c669ab36eb1d243359d31cbdd1a3aae",
+  "runs": [
+    {
+      "version": "12.2.1",
+      "seconds": 3.0197755000554025,
+      "exitCode": 0,
+      "lockfileChanged": true,
+      "outputSha256": "ddda6fba67fe55cbb70d76845e4894300aa92e3de3ea293e797ab1d56b816b55"
+    },
+    {
+      "version": "12.3.0",
+      "seconds": 29.553985457867384,
+      "exitCode": 0,
+      "lockfileChanged": true,
+      "outputSha256": "ddda6fba67fe55cbb70d76845e4894300aa92e3de3ea293e797ab1d56b816b55"
+    },
+    {
+      "version": "12.3.0",
+      "seconds": 29.678820125060156,
+      "exitCode": 0,
+      "lockfileChanged": true,
+      "outputSha256": "ddda6fba67fe55cbb70d76845e4894300aa92e3de3ea293e797ab1d56b816b55"
+    },
+    {
+      "version": "12.2.1",
+      "seconds": 2.750167125137523,
+      "exitCode": 0,
+      "lockfileChanged": true,
+      "outputSha256": "ddda6fba67fe55cbb70d76845e4894300aa92e3de3ea293e797ab1d56b816b55"
+    },
+    {
+      "version": "12.2.1",
+      "seconds": 2.6522729580756277,
+      "exitCode": 0,
+      "lockfileChanged": true,
+      "outputSha256": "ddda6fba67fe55cbb70d76845e4894300aa92e3de3ea293e797ab1d56b816b55"
+    },
+    {
+      "version": "12.3.0",
+      "seconds": 27.907600458012894,
+      "exitCode": 0,
+      "lockfileChanged": true,
+      "outputSha256": "ddda6fba67fe55cbb70d76845e4894300aa92e3de3ea293e797ab1d56b816b55"
+    }
+  ],
+  "medianSeconds": {
+    "12.2.1": 2.750167125137523,
+    "12.3.0": 29.553985457867384
+  },
+  "slowdown": 10.74625072335905
+}

@@ -1,7 +1,7 @@
 lockfileVersion: '9.0'
 
 settings:
-  autoInstallPeers: true
+  autoInstallPeers: false
   excludeLinksFromLockfile: false
 
 importers:
@@ -17,6 +17,9 @@ importers:
 
   packages/package-00:
     dependencies:
+      '@synth/peer-consumer-05':
+        specifier: file:../../fixtures/peer-consumer-05
+        version: file:fixtures/peer-consumer-05(@synth/pkg-00143@packages+package-00+node-001+node-000+node-140)
       '@synth/pkg-00143':
         specifier: workspace:*
         version: link:node-001/node-000/node-140
@@ -11745,6 +11748,9 @@ importers:
 
   packages/package-00/node-001/node-002/node-007:
     dependencies:
+      '@synth/peer-consumer-12':
+        specifier: file:../../../../../fixtures/peer-consumer-12
+        version: file:fixtures/peer-consumer-12(@synth/pkg-00019@packages+package-00+node-001+node-000+node-016)
       '@synth/pkg-00019':
         specifier: workspace:*
         version: link:../../node-000/node-016
@@ -36826,6 +36832,9 @@ importers:
 
   packages/package-03:
     dependencies:
+      '@synth/peer-consumer-03':
+        specifier: file:../../fixtures/peer-consumer-03
+        version: file:fixtures/peer-consumer-03(@synth/pkg-00633@packages+package-03+node-000+node-000)
       '@synth/pkg-00633':
         specifier: workspace:*
         version: link:node-000/node-000
@@ -45578,6 +45587,9 @@ importers:
 
   packages/package-04:
     dependencies:
+      '@synth/peer-consumer-00':
+        specifier: file:../../fixtures/peer-consumer-00
+        version: file:fixtures/peer-consumer-00(@synth/pkg-00778@packages+package-04+node-001)
       '@synth/pkg-00778':
         specifier: workspace:*
         version: link:node-001
@@ -59706,6 +59718,9 @@ importers:
 
   packages/package-04/node-011/node-001/node-151:
     dependencies:
+      '@synth/peer-consumer-20':
+        specifier: file:../../../../../fixtures/peer-consumer-20
+        version: file:fixtures/peer-consumer-20(@synth/pkg-00858@packages+package-04+node-011+node-000+node-070)
       '@synth/pkg-00858':
         specifier: workspace:*
         version: link:../../node-000/node-070
@@ -64773,6 +64788,9 @@ importers:
 
   packages/package-04/node-011/node-001/node-223:
     dependencies:
+      '@synth/peer-consumer-13':
+        specifier: file:../../../../../fixtures/peer-consumer-13
+        version: file:fixtures/peer-consumer-13(@synth/pkg-00858@packages+package-04+node-011+node-000+node-070)
       '@synth/pkg-00858':
         specifier: workspace:*
         version: link:../../node-000/node-070
@@ -65966,6 +65984,9 @@ importers:
 
   packages/package-04/node-011/node-001/node-237:
     dependencies:
+      '@synth/peer-consumer-10':
+        specifier: file:../../../../../fixtures/peer-consumer-10
+        version: file:fixtures/peer-consumer-10(@synth/pkg-00902@packages+package-04+node-011+node-001+node-015)
       '@synth/pkg-00902':
         specifier: workspace:*
         version: link:../node-015
@@ -72703,6 +72724,9 @@ importers:
 
   packages/package-04/node-011/node-001/node-346:
     dependencies:
+      '@synth/peer-consumer-11':
+        specifier: file:../../../../../fixtures/peer-consumer-11
+        version: file:fixtures/peer-consumer-11(@synth/pkg-00858@packages+package-04+node-011+node-000+node-070)
       '@synth/pkg-00858':
         specifier: workspace:*
         version: link:../../node-000/node-070
@@ -88199,6 +88223,9 @@ importers:
 
   packages/package-04/node-011/node-001/node-587:
     dependencies:
+      '@synth/peer-consumer-18':
+        specifier: file:../../../../../fixtures/peer-consumer-18
+        version: file:fixtures/peer-consumer-18(@synth/pkg-00858@packages+package-04+node-011+node-000+node-070)
       '@synth/pkg-00858':
         specifier: workspace:*
         version: link:../../node-000/node-070
@@ -98201,6 +98228,9 @@ importers:
 
   packages/package-04/node-012/node-007:
     dependencies:
+      '@synth/peer-consumer-17':
+        specifier: file:../../../../fixtures/peer-consumer-17
+        version: file:fixtures/peer-consumer-17(@synth/pkg-00877@packages+package-04+node-011+node-000+node-089)
       '@synth/pkg-00877':
         specifier: workspace:*
         version: link:../../node-011/node-000/node-089
@@ -98659,6 +98689,9 @@ importers:
 
   packages/package-04/node-012/node-009:
     dependencies:
+      '@synth/peer-consumer-01':
+        specifier: file:../../../../fixtures/peer-consumer-01
+        version: file:fixtures/peer-consumer-01(@synth/pkg-00792@packages+package-04+node-011+node-000+node-004)
       '@synth/pkg-00792':
         specifier: workspace:*
         version: link:../../node-011/node-000/node-004
@@ -101251,6 +101284,9 @@ importers:
 
   packages/package-07:
     dependencies:
+      '@synth/peer-consumer-02':
+        specifier: file:../../fixtures/peer-consumer-02
+        version: file:fixtures/peer-consumer-02(@synth/pkg-01675@packages+package-07+node-001+node-000+node-000)
       '@synth/pkg-01675':
         specifier: workspace:*
         version: link:node-001/node-000/node-000
@@ -106471,6 +106507,9 @@ importers:
 
   packages/package-07/node-004:
     dependencies:
+      '@synth/peer-consumer-07':
+        specifier: file:../../../fixtures/peer-consumer-07
+        version: file:fixtures/peer-consumer-07(@synth/pkg-01676@packages+package-07+node-002+node-000)
       '@synth/pkg-01676':
         specifier: workspace:*
         version: link:../node-002/node-000
@@ -107930,6 +107969,9 @@ importers:
 
   packages/package-09:
     dependencies:
+      '@synth/peer-consumer-09':
+        specifier: file:../../fixtures/peer-consumer-09
+        version: file:fixtures/peer-consumer-09(@synth/pkg-01840@packages+package-10+node-000+node-000+node-005)
       '@synth/pkg-01840':
         specifier: workspace:*
         version: link:../package-10/node-000/node-000/node-005
@@ -108527,6 +108569,9 @@ importers:
 
   packages/package-09/node-001:
     dependencies:
+      '@synth/peer-consumer-16':
+        specifier: file:../../../fixtures/peer-consumer-16
+        version: file:fixtures/peer-consumer-16(@synth/pkg-01840@packages+package-10+node-000+node-000+node-005)
       '@synth/pkg-01840':
         specifier: workspace:*
         version: link:../../package-10/node-000/node-000/node-005
@@ -113590,6 +113635,9 @@ importers:
 
   packages/package-10/node-004/node-006/node-003:
     dependencies:
+      '@synth/peer-consumer-21':
+        specifier: file:../../../../../fixtures/peer-consumer-21
+        version: file:fixtures/peer-consumer-21(@synth/pkg-01952@packages+package-10+node-000+node-014+node-000)
       '@synth/pkg-01952':
         specifier: workspace:*
         version: link:../../../node-000/node-014/node-000
@@ -133747,6 +133795,9 @@ importers:
 
   packages/package-10/node-004/node-035/node-083:
     dependencies:
+      '@synth/peer-consumer-22':
+        specifier: file:../../../../../fixtures/peer-consumer-22
+        version: file:fixtures/peer-consumer-22(@synth/pkg-02277@packages+package-10+node-004+node-006+node-054)
       '@synth/pkg-02277':
         specifier: workspace:*
         version: link:../../node-006/node-054
@@ -137268,6 +137319,9 @@ importers:
 
   packages/package-10/node-004/node-041/node-040:
     dependencies:
+      '@synth/peer-consumer-29':
+        specifier: file:../../../../../fixtures/peer-consumer-29
+        version: file:fixtures/peer-consumer-29(@synth/pkg-01953@packages+package-10+node-000+node-014+node-001)
       '@synth/pkg-01953':
         specifier: workspace:*
         version: link:../../../node-000/node-014/node-001
@@ -177220,6 +177274,9 @@ importers:
 
   packages/package-10/node-004/node-088/node-047:
     dependencies:
+      '@synth/peer-consumer-26':
+        specifier: file:../../../../../fixtures/peer-consumer-26
+        version: file:fixtures/peer-consumer-26(@synth/pkg-01952@packages+package-10+node-000+node-014+node-000)
       '@synth/pkg-01952':
         specifier: workspace:*
         version: link:../../../node-000/node-014/node-000
@@ -193326,6 +193383,9 @@ importers:
 
   packages/package-11:
     dependencies:
+      '@synth/peer-consumer-08':
+        specifier: file:../../fixtures/peer-consumer-08
+        version: file:fixtures/peer-consumer-08(@synth/pkg-01855@packages+package-10+node-000+node-001+node-014)
       '@synth/pkg-01855':
         specifier: workspace:*
         version: link:../package-10/node-000/node-001/node-014
@@ -194402,6 +194462,9 @@ importers:
 
   packages/package-11/node-001/node-000/node-004/node-000:
     dependencies:
+      '@synth/peer-consumer-28':
+        specifier: file:../../../../../../fixtures/peer-consumer-28
+        version: file:fixtures/peer-consumer-28(@synth/pkg-02313@packages+package-10+node-004+node-008+node-003)
       '@synth/pkg-02313':
         specifier: workspace:*
         version: link:../../../../../package-10/node-004/node-008/node-003
@@ -233819,6 +233882,9 @@ importers:
 
   packages/package-11/node-001/node-136/node-002/node-000:
     dependencies:
+      '@synth/peer-consumer-06':
+        specifier: file:../../../../../../fixtures/peer-consumer-06
+        version: file:fixtures/peer-consumer-06(@synth/pkg-03206@packages+package-10+node-004+node-063+node-004)
       '@synth/pkg-03206':
         specifier: workspace:*
         version: link:../../../../../package-10/node-004/node-063/node-004
@@ -254450,6 +254516,9 @@ importers:
 
   packages/package-11/node-004/node-012/node-000:
     dependencies:
+      '@synth/peer-consumer-14':
+        specifier: file:../../../../../fixtures/peer-consumer-14
+        version: file:fixtures/peer-consumer-14(@synth/pkg-04002@packages+package-11+node-001+node-000+node-001)
       '@synth/pkg-04002':
         specifier: workspace:*
         version: link:../../../node-001/node-000/node-001
@@ -257163,6 +257232,9 @@ importers:
 
   packages/package-13:
     dependencies:
+      '@synth/peer-consumer-24':
+        specifier: file:../../fixtures/peer-consumer-24
+        version: file:fixtures/peer-consumer-24(@synth/pkg-01883@packages+package-10+node-000+node-005+node-003+node-003)
       '@synth/pkg-01883':
         specifier: workspace:*
         version: link:../package-10/node-000/node-005/node-003/node-003
@@ -258592,6 +258664,9 @@ importers:
 
   packages/package-14/node-002/node-002:
     dependencies:
+      '@synth/peer-consumer-19':
+        specifier: file:../../../../fixtures/peer-consumer-19
+        version: file:fixtures/peer-consumer-19(@synth/pkg-01952@packages+package-10+node-000+node-014+node-000)
       '@synth/pkg-01952':
         specifier: workspace:*
         version: link:../../../package-10/node-000/node-014/node-000
@@ -261939,6 +262014,9 @@ importers:
 
   packages/package-15:
     dependencies:
+      '@synth/peer-consumer-04':
+        specifier: file:../../fixtures/peer-consumer-04
+        version: file:fixtures/peer-consumer-04(@synth/pkg-01937@packages+package-10+node-000+node-011+node-000)
       '@synth/pkg-01937':
         specifier: workspace:*
         version: link:../package-10/node-000/node-011/node-000
@@ -262932,6 +263010,9 @@ importers:
 
   packages/package-15/node-000/node-001:
     dependencies:
+      '@synth/peer-consumer-25':
+        specifier: file:../../../../fixtures/peer-consumer-25
+        version: file:fixtures/peer-consumer-25(@synth/pkg-02247@packages+package-10+node-004+node-006+node-024)
       '@synth/pkg-02247':
         specifier: workspace:*
         version: link:../../../package-10/node-004/node-006/node-024
@@ -279441,6 +279522,9 @@ importers:
 
   packages/package-15/node-004/node-017:
     dependencies:
+      '@synth/peer-consumer-15':
+        specifier: file:../../../../fixtures/peer-consumer-15
+        version: file:fixtures/peer-consumer-15(@synth/pkg-02199@packages+package-10+node-004+node-001+node-001)
       '@synth/pkg-02199':
         specifier: workspace:*
         version: link:../../../package-10/node-004/node-001/node-001
@@ -281871,6 +281955,9 @@ importers:
 
   packages/package-16:
     dependencies:
+      '@synth/peer-consumer-27':
+        specifier: file:../../fixtures/peer-consumer-27
+        version: file:fixtures/peer-consumer-27(@synth/pkg-01950@packages+package-10+node-000+node-013+node-001)
       '@synth/pkg-01950':
         specifier: workspace:*
         version: link:../package-10/node-000/node-013/node-001
@@ -282473,6 +282560,9 @@ importers:
 
   packages/package-16/node-002:
     dependencies:
+      '@synth/peer-consumer-23':
+        specifier: file:../../../fixtures/peer-consumer-23
+        version: file:fixtures/peer-consumer-23(@synth/pkg-01927@packages+package-10+node-000+node-007)
       '@synth/pkg-01927':
         specifier: workspace:*
         version: link:../../package-10/node-000/node-007
@@ -282871,3 +282961,277 @@ importers:
         version: link:../../package-10/node-005/node-013
 
   packages/package-16/node-003: {}
+
+packages:
+
+  '@synth/peer-consumer-00@file:fixtures/peer-consumer-00':
+    resolution: {directory: fixtures/peer-consumer-00, type: directory}
+    peerDependencies:
+      '@synth/pkg-00778': ^2.0.0
+
+  '@synth/peer-consumer-01@file:fixtures/peer-consumer-01':
+    resolution: {directory: fixtures/peer-consumer-01, type: directory}
+    peerDependencies:
+      '@synth/pkg-00792': ^2.0.0
+
+  '@synth/peer-consumer-02@file:fixtures/peer-consumer-02':
+    resolution: {directory: fixtures/peer-consumer-02, type: directory}
+    peerDependencies:
+      '@synth/pkg-01675': ^2.0.0
+
+  '@synth/peer-consumer-03@file:fixtures/peer-consumer-03':
+    resolution: {directory: fixtures/peer-consumer-03, type: directory}
+    peerDependencies:
+      '@synth/pkg-00633': ^2.0.0
+
+  '@synth/peer-consumer-04@file:fixtures/peer-consumer-04':
+    resolution: {directory: fixtures/peer-consumer-04, type: directory}
+    peerDependencies:
+      '@synth/pkg-01937': ^2.0.0
+
+  '@synth/peer-consumer-05@file:fixtures/peer-consumer-05':
+    resolution: {directory: fixtures/peer-consumer-05, type: directory}
+    peerDependencies:
+      '@synth/pkg-00143': ^2.0.0
+
+  '@synth/peer-consumer-06@file:fixtures/peer-consumer-06':
+    resolution: {directory: fixtures/peer-consumer-06, type: directory}
+    peerDependencies:
+      '@synth/pkg-03206': ^2.0.0
+
+  '@synth/peer-consumer-07@file:fixtures/peer-consumer-07':
+    resolution: {directory: fixtures/peer-consumer-07, type: directory}
+    peerDependencies:
+      '@synth/pkg-01676': ^2.0.0
+
+  '@synth/peer-consumer-08@file:fixtures/peer-consumer-08':
+    resolution: {directory: fixtures/peer-consumer-08, type: directory}
+    peerDependencies:
+      '@synth/pkg-01855': ^2.0.0
+
+  '@synth/peer-consumer-09@file:fixtures/peer-consumer-09':
+    resolution: {directory: fixtures/peer-consumer-09, type: directory}
+    peerDependencies:
+      '@synth/pkg-01840': ^2.0.0
+
+  '@synth/peer-consumer-10@file:fixtures/peer-consumer-10':
+    resolution: {directory: fixtures/peer-consumer-10, type: directory}
+    peerDependencies:
+      '@synth/pkg-00902': ^2.0.0
+
+  '@synth/peer-consumer-11@file:fixtures/peer-consumer-11':
+    resolution: {directory: fixtures/peer-consumer-11, type: directory}
+    peerDependencies:
+      '@synth/pkg-00858': ^2.0.0
+
+  '@synth/peer-consumer-12@file:fixtures/peer-consumer-12':
+    resolution: {directory: fixtures/peer-consumer-12, type: directory}
+    peerDependencies:
+      '@synth/pkg-00019': ^2.0.0
+
+  '@synth/peer-consumer-13@file:fixtures/peer-consumer-13':
+    resolution: {directory: fixtures/peer-consumer-13, type: directory}
+    peerDependencies:
+      '@synth/pkg-00858': ^2.0.0
+
+  '@synth/peer-consumer-14@file:fixtures/peer-consumer-14':
+    resolution: {directory: fixtures/peer-consumer-14, type: directory}
+    peerDependencies:
+      '@synth/pkg-04002': ^2.0.0
+
+  '@synth/peer-consumer-15@file:fixtures/peer-consumer-15':
+    resolution: {directory: fixtures/peer-consumer-15, type: directory}
+    peerDependencies:
+      '@synth/pkg-02199': ^2.0.0
+
+  '@synth/peer-consumer-16@file:fixtures/peer-consumer-16':
+    resolution: {directory: fixtures/peer-consumer-16, type: directory}
+    peerDependencies:
+      '@synth/pkg-01840': ^2.0.0
+
+  '@synth/peer-consumer-17@file:fixtures/peer-consumer-17':
+    resolution: {directory: fixtures/peer-consumer-17, type: directory}
+    peerDependencies:
+      '@synth/pkg-00877': ^2.0.0
+
+  '@synth/peer-consumer-18@file:fixtures/peer-consumer-18':
+    resolution: {directory: fixtures/peer-consumer-18, type: directory}
+    peerDependencies:
+      '@synth/pkg-00858': ^2.0.0
+
+  '@synth/peer-consumer-19@file:fixtures/peer-consumer-19':
+    resolution: {directory: fixtures/peer-consumer-19, type: directory}
+    peerDependencies:
+      '@synth/pkg-01952': ^2.0.0
+
+  '@synth/peer-consumer-20@file:fixtures/peer-consumer-20':
+    resolution: {directory: fixtures/peer-consumer-20, type: directory}
+    peerDependencies:
+      '@synth/pkg-00858': ^2.0.0
+
+  '@synth/peer-consumer-21@file:fixtures/peer-consumer-21':
+    resolution: {directory: fixtures/peer-consumer-21, type: directory}
+    peerDependencies:
+      '@synth/pkg-01952': ^2.0.0
+
+  '@synth/peer-consumer-22@file:fixtures/peer-consumer-22':
+    resolution: {directory: fixtures/peer-consumer-22, type: directory}
+    peerDependencies:
+      '@synth/pkg-02277': ^2.0.0
+
+  '@synth/peer-consumer-23@file:fixtures/peer-consumer-23':
+    resolution: {directory: fixtures/peer-consumer-23, type: directory}
+    peerDependencies:
+      '@synth/pkg-01927': ^2.0.0
+
+  '@synth/peer-consumer-24@file:fixtures/peer-consumer-24':
+    resolution: {directory: fixtures/peer-consumer-24, type: directory}
+    peerDependencies:
+      '@synth/pkg-01883': ^2.0.0
+
+  '@synth/peer-consumer-25@file:fixtures/peer-consumer-25':
+    resolution: {directory: fixtures/peer-consumer-25, type: directory}
+    peerDependencies:
+      '@synth/pkg-02247': ^2.0.0
+
+  '@synth/peer-consumer-26@file:fixtures/peer-consumer-26':
+    resolution: {directory: fixtures/peer-consumer-26, type: directory}
+    peerDependencies:
+      '@synth/pkg-01952': ^2.0.0
+
+  '@synth/peer-consumer-27@file:fixtures/peer-consumer-27':
+    resolution: {directory: fixtures/peer-consumer-27, type: directory}
+    peerDependencies:
+      '@synth/pkg-01950': ^2.0.0
+
+  '@synth/peer-consumer-28@file:fixtures/peer-consumer-28':
+    resolution: {directory: fixtures/peer-consumer-28, type: directory}
+    peerDependencies:
+      '@synth/pkg-02313': ^2.0.0
+
+  '@synth/peer-consumer-29@file:fixtures/peer-consumer-29':
+    resolution: {directory: fixtures/peer-consumer-29, type: directory}
+    peerDependencies:
+      '@synth/pkg-01953': ^2.0.0
+
+snapshots:
+
+  '@synth/peer-consumer-00@file:fixtures/peer-consumer-00(@synth/pkg-00778@packages+package-04+node-001)':
+    dependencies:
+      '@synth/pkg-00778': link:packages/package-04/node-001
+
+  '@synth/peer-consumer-01@file:fixtures/peer-consumer-01(@synth/pkg-00792@packages+package-04+node-011+node-000+node-004)':
+    dependencies:
+      '@synth/pkg-00792': link:packages/package-04/node-011/node-000/node-004
+
+  '@synth/peer-consumer-02@file:fixtures/peer-consumer-02(@synth/pkg-01675@packages+package-07+node-001+node-000+node-000)':
+    dependencies:
+      '@synth/pkg-01675': link:packages/package-07/node-001/node-000/node-000
+
+  '@synth/peer-consumer-03@file:fixtures/peer-consumer-03(@synth/pkg-00633@packages+package-03+node-000+node-000)':
+    dependencies:
+      '@synth/pkg-00633': link:packages/package-03/node-000/node-000
+
+  '@synth/peer-consumer-04@file:fixtures/peer-consumer-04(@synth/pkg-01937@packages+package-10+node-000+node-011+node-000)':
+    dependencies:
+      '@synth/pkg-01937': link:packages/package-10/node-000/node-011/node-000
+
+  '@synth/peer-consumer-05@file:fixtures/peer-consumer-05(@synth/pkg-00143@packages+package-00+node-001+node-000+node-140)':
+    dependencies:
+      '@synth/pkg-00143': link:packages/package-00/node-001/node-000/node-140
+
+  '@synth/peer-consumer-06@file:fixtures/peer-consumer-06(@synth/pkg-03206@packages+package-10+node-004+node-063+node-004)':
+    dependencies:
+      '@synth/pkg-03206': link:packages/package-10/node-004/node-063/node-004
+
+  '@synth/peer-consumer-07@file:fixtures/peer-consumer-07(@synth/pkg-01676@packages+package-07+node-002+node-000)':
+    dependencies:
+      '@synth/pkg-01676': link:packages/package-07/node-002/node-000
+
+  '@synth/peer-consumer-08@file:fixtures/peer-consumer-08(@synth/pkg-01855@packages+package-10+node-000+node-001+node-014)':
+    dependencies:
+      '@synth/pkg-01855': link:packages/package-10/node-000/node-001/node-014
+
+  '@synth/peer-consumer-09@file:fixtures/peer-consumer-09(@synth/pkg-01840@packages+package-10+node-000+node-000+node-005)':
+    dependencies:
+      '@synth/pkg-01840': link:packages/package-10/node-000/node-000/node-005
+
+  '@synth/peer-consumer-10@file:fixtures/peer-consumer-10(@synth/pkg-00902@packages+package-04+node-011+node-001+node-015)':
+    dependencies:
+      '@synth/pkg-00902': link:packages/package-04/node-011/node-001/node-015
+
+  '@synth/peer-consumer-11@file:fixtures/peer-consumer-11(@synth/pkg-00858@packages+package-04+node-011+node-000+node-070)':
+    dependencies:
+      '@synth/pkg-00858': link:packages/package-04/node-011/node-000/node-070
+
+  '@synth/peer-consumer-12@file:fixtures/peer-consumer-12(@synth/pkg-00019@packages+package-00+node-001+node-000+node-016)':
+    dependencies:
+      '@synth/pkg-00019': link:packages/package-00/node-001/node-000/node-016
+
+  '@synth/peer-consumer-13@file:fixtures/peer-consumer-13(@synth/pkg-00858@packages+package-04+node-011+node-000+node-070)':
+    dependencies:
+      '@synth/pkg-00858': link:packages/package-04/node-011/node-000/node-070
+
+  '@synth/peer-consumer-14@file:fixtures/peer-consumer-14(@synth/pkg-04002@packages+package-11+node-001+node-000+node-001)':
+    dependencies:
+      '@synth/pkg-04002': link:packages/package-11/node-001/node-000/node-001
+
+  '@synth/peer-consumer-15@file:fixtures/peer-consumer-15(@synth/pkg-02199@packages+package-10+node-004+node-001+node-001)':
+    dependencies:
+      '@synth/pkg-02199': link:packages/package-10/node-004/node-001/node-001
+
+  '@synth/peer-consumer-16@file:fixtures/peer-consumer-16(@synth/pkg-01840@packages+package-10+node-000+node-000+node-005)':
+    dependencies:
+      '@synth/pkg-01840': link:packages/package-10/node-000/node-000/node-005
+
+  '@synth/peer-consumer-17@file:fixtures/peer-consumer-17(@synth/pkg-00877@packages+package-04+node-011+node-000+node-089)':
+    dependencies:
+      '@synth/pkg-00877': link:packages/package-04/node-011/node-000/node-089
+
+  '@synth/peer-consumer-18@file:fixtures/peer-consumer-18(@synth/pkg-00858@packages+package-04+node-011+node-000+node-070)':
+    dependencies:
+      '@synth/pkg-00858': link:packages/package-04/node-011/node-000/node-070
+
+  '@synth/peer-consumer-19@file:fixtures/peer-consumer-19(@synth/pkg-01952@packages+package-10+node-000+node-014+node-000)':
+    dependencies:
+      '@synth/pkg-01952': link:packages/package-10/node-000/node-014/node-000
+
+  '@synth/peer-consumer-20@file:fixtures/peer-consumer-20(@synth/pkg-00858@packages+package-04+node-011+node-000+node-070)':
+    dependencies:
+      '@synth/pkg-00858': link:packages/package-04/node-011/node-000/node-070
+
+  '@synth/peer-consumer-21@file:fixtures/peer-consumer-21(@synth/pkg-01952@packages+package-10+node-000+node-014+node-000)':
+    dependencies:
+      '@synth/pkg-01952': link:packages/package-10/node-000/node-014/node-000
+
+  '@synth/peer-consumer-22@file:fixtures/peer-consumer-22(@synth/pkg-02277@packages+package-10+node-004+node-006+node-054)':
+    dependencies:
+      '@synth/pkg-02277': link:packages/package-10/node-004/node-006/node-054
+
+  '@synth/peer-consumer-23@file:fixtures/peer-consumer-23(@synth/pkg-01927@packages+package-10+node-000+node-007)':
+    dependencies:
+      '@synth/pkg-01927': link:packages/package-10/node-000/node-007
+
+  '@synth/peer-consumer-24@file:fixtures/peer-consumer-24(@synth/pkg-01883@packages+package-10+node-000+node-005+node-003+node-003)':
+    dependencies:
+      '@synth/pkg-01883': link:packages/package-10/node-000/node-005/node-003/node-003
+
+  '@synth/peer-consumer-25@file:fixtures/peer-consumer-25(@synth/pkg-02247@packages+package-10+node-004+node-006+node-024)':
+    dependencies:
+      '@synth/pkg-02247': link:packages/package-10/node-004/node-006/node-024
+
+  '@synth/peer-consumer-26@file:fixtures/peer-consumer-26(@synth/pkg-01952@packages+package-10+node-000+node-014+node-000)':
+    dependencies:
+      '@synth/pkg-01952': link:packages/package-10/node-000/node-014/node-000
+
+  '@synth/peer-consumer-27@file:fixtures/peer-consumer-27(@synth/pkg-01950@packages+package-10+node-000+node-013+node-001)':
+    dependencies:
+      '@synth/pkg-01950': link:packages/package-10/node-000/node-013/node-001
+
+  '@synth/peer-consumer-28@file:fixtures/peer-consumer-28(@synth/pkg-02313@packages+package-10+node-004+node-008+node-003)':
+    dependencies:
+      '@synth/pkg-02313': link:packages/package-10/node-004/node-008/node-003
+
+  '@synth/peer-consumer-29@file:fixtures/peer-consumer-29(@synth/pkg-01953@packages+package-10+node-000+node-014+node-001)':
+    dependencies:
+      '@synth/pkg-01953': link:packages/package-10/node-000/node-014/node-001

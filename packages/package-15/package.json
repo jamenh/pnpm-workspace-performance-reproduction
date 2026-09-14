@@ -238,6 +238,7 @@
     "@synth/pkg-06789": "workspace:*",
     "@synth/pkg-06791": "workspace:*",
     "@synth/pkg-06792": "workspace:*",
-    "@synth/pkg-06793": "workspace:*"
+    "@synth/pkg-06793": "workspace:*",
+    "@synth/peer-consumer-04": "file:../../fixtures/peer-consumer-04"
   }
 }

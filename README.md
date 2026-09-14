@@ -26,6 +26,59 @@ Yarn intentionally uses the broad `packages/**` workspace declaration. pnpm uses
 precise declarations; `pnpm-workspace.yaml` also shows the equivalent broad declaration as a
 commented-out slow alternative.
 
+## Peer-check regression: pnpm 12.2.1 versus 12.3.0
+
+The peer reproduction is already materialized. No generator, custom pnpm hook, registry
+access, or package build is needed. There are 30 local packages in `fixtures/peer-consumer-*`,
+each containing only a `package.json`. Thirty existing workspace projects depend on these
+packages through `file:` references. Each fixture requires one of its consumer's existing
+workspace dependencies at `^2.0.0`; the available workspace version is `1.0.0`.
+These intentional mismatches trigger install-time peer diagnostics while the existing
+shared workspace graph supplies the traversal workload. `autoInstallPeers: false` prevents
+attempts to download a compatible peer, and `strictPeerDependencies: false` permits completion.
+
+Use native pnpm 12.2.1 and 12.3.0 executables for your platform. Run the following steps
+from this repository with each executable, restoring the same inputs between versions:
+
+1. Save the original root `package.json` and `pnpm-lock.yaml` outside this checkout.
+2. In the root `package.json`, change only `@synth/pkg-03426` from `workspace:*` to
+   `workspace:^`. This forces a real lockfile update instead of a no-op.
+3. Run the command below, substituting the path to the executable being measured.
+4. Restore both saved files before repeating with the other version.
+
+```sh
+/path/to/pnpm --version
+time /path/to/pnpm install --lockfile-only --trust-lockfile --offline --ignore-scripts --reporter=append-only
+```
+
+Both versions should exit successfully and print `Issues with peer dependencies found`.
+The resulting lockfiles should be identical. There is no need to run `pnpm peers check`
+to observe this regression. An unchanged or frozen lockfile install can skip the diagnostic
+path, so the manifest edit is necessary for this comparison.
+
+Measured on macOS 15.7.9 arm64 using native release binaries and a warm local store.
+Each run restored the same seed lockfile and made the same root manifest edit. Execution
+order was 12.2.1, 12.3.0, 12.3.0, 12.2.1, 12.2.1, 12.3.0.
+
+| Version | Three wall times | Median |
+| --- | --- | --- |
+| 12.2.1 | 3.020 s, 2.750 s, 2.652 s | 2.750 s |
+| 12.3.0 | 29.554 s, 29.679 s, 27.908 s | 29.554 s |
+
+12.3.0 was **10.75 times slower**. All six commands exited successfully, changed the
+lockfile, and produced byte-identical output lockfiles. Raw timings and hashes are in
+[peer-regression-results.json](peer-regression-results.json).
+
+The suspected traversal change is
+[pnpm commit 291d374898](https://github.com/pnpm/pnpm/commit/291d374898559f01f218a2aac8e05c0d3d5fef3d),
+which makes normalized linked-workspace paths resolve to importer IDs and enables deeper
+peer-check traversal. Shared linked dependencies are traversed separately for each checked
+importer. This repository's measurements compare the two releases; they do not independently
+test a build reverting that commit.
+
+The pnpm lockfile includes the peer fixtures. The existing Yarn lockfile and the resolver
+benchmark below describe the earlier workspace without these added fixtures.
+
 ## Run the workspace
 
 The repository contains the complete project tree, workspace declarations, and lockfiles. After
