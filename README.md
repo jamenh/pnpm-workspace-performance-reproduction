@@ -113,12 +113,12 @@ executable should produce the same lockfile.
 
 Measured on 2026-09-30 on macOS arm64 with a warm metadata cache. Both executables were built with
 the same profile. Base is pnpm `main` at `d162953a1`; the candidate is the same commit plus the
-cached range metadata change. There were eight alternating runs per row, after one warm-up.
+cached range metadata change. There were 20 alternating runs per row, after one warm-up.
 
-| Command | Base median | Candidate median | Registry requests (base / candidate) |
-| --- | --- | --- | --- |
-| with `--auto-dedupe` | 2.46 s | 2.28 s | 223 / 0 |
-| without `--auto-dedupe` | 2.70 s | 2.18 s | 184 / 0 |
+| Command | Base median (p25–p75) | Candidate median (p25–p75) | Change | Registry requests (base / candidate) |
+| --- | --- | --- | --- | --- |
+| with `--auto-dedupe` | 2.67 s (2.53–2.94) | 2.25 s (2.20–2.44) | −16% | 223 / 0 |
+| without `--auto-dedupe` | 2.88 s (2.76–2.99) | 2.13 s (2.10–2.16) | −26% | 184 / 0 |
 
 Request counts came from temporary logging at the resolver's registry fetch and are not part of
 either executable. The time saved per request is small on npmjs, which answers these
