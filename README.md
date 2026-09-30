@@ -120,6 +120,16 @@ cached range metadata change. There were 20 alternating runs per row, after one 
 | with `--auto-dedupe` | 2.67 s (2.53–2.94) | 2.25 s (2.20–2.44) | −16% | 223 / 0 |
 | without `--auto-dedupe` | 2.88 s (2.76–2.99) | 2.13 s (2.10–2.16) | −26% | 184 / 0 |
 
+Request counts came from temporary logging at the resolver's registry fetch and are not part of
+either executable. The time saved per request is small on npmjs, which answers these
+revalidations quickly. Registries that answer them slowly show a larger difference.
+
+Other notes:
+
+- The Yarn lockfile does not include these projects.
+- The earlier measurements above were taken before these projects were added.
+- The documented `--offline` commands still work once the metadata cache is warm.
+
 ### No-op updates
 
 A no-op needs a lockfile that `--auto-dedupe` has already converged:
@@ -143,16 +153,6 @@ Without `--auto-dedupe`, pnpm sees that the lockfile is up to date and returns w
 With it, every run resolves the whole graph again, even when nothing changes, and costs about 3.7
 times as much after the change. The change removes the registry revalidation from that resolution;
 it does not skip the resolution itself.
-
-Request counts came from temporary logging at the resolver's registry fetch and are not part of
-either executable. The time saved per request is small on npmjs, which answers these
-revalidations quickly. Registries that answer them slowly show a larger difference.
-
-Other notes:
-
-- The Yarn lockfile does not include these projects.
-- The earlier measurements above were taken before these projects were added.
-- The documented `--offline` commands still work once the metadata cache is warm.
 
 ## Run the workspace
 
