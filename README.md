@@ -11,19 +11,20 @@ The topology is anonymized and contains no source code or private package names.
 
 The committed workspace has:
 
-- 6,833 projects;
-- 784 precise pnpm workspace patterns across 17 package groups;
+- 6,839 projects, six of which depend on registry packages;
+- 785 precise pnpm workspace patterns: 784 across 17 package groups, plus one for the registry consumers;
 - 87,630 `workspace:*` dependency edges;
 - a most-shared package with 2,633 consumers;
 - 75,152 non-project directories and 300,608 ordinary files beneath the projects.
 
-All non-root projects live below `packages/package-00` through `packages/package-16`, and all package
-names use the `@synth` scope. The noise consists of nested `docs`, `examples`, and `stories` trees
+All other non-root projects live below `packages/package-00` through `packages/package-16`, and
+all package names use the `@synth` scope. The six registry consumers live in
+`packages/registry-consumers/`. The noise consists of nested `docs`, `examples`, and `stories` trees
 without additional package manifests. It makes recursive directory traversal expensive without
 changing the project set or dependency graph.
 
 Yarn intentionally uses the broad `packages/**` workspace declaration. pnpm uses the original 784
-precise declarations; `pnpm-workspace.yaml` also shows the equivalent broad declaration as a
+precise declarations plus `packages/registry-consumers/*`; `pnpm-workspace.yaml` also shows the equivalent broad declaration as a
 commented-out slow alternative.
 
 ## Peer-check regression: pnpm 12.2.1 versus 12.3.0
@@ -79,6 +80,56 @@ test a build reverting that commit.
 The pnpm lockfile includes the peer fixtures. The existing Yarn lockfile and the resolver
 benchmark below describe the earlier workspace without these added fixtures.
 
+## Registry revalidation during `autoDedupe`
+
+Six projects under `packages/registry-consumers/` depend on 44 registry packages, including Babel,
+webpack, ESLint, Storybook, Next.js, the AWS SDK v3, Azure SDKs and React Spectrum. The pnpm
+lockfile resolves 1,446 registry package names, and 568 of them have more than one locked version
+whose ranges overlap:
+
+- the three `legacy-*` projects use plain caret ranges such as `^7.0.0` and were locked to the
+  newest versions published before 2024-09-30;
+- the three `current-*` projects use caret ranges that start at the newest version, so they lock
+  current releases.
+
+`pnpm-workspace.yaml` sets `minimumReleaseAge: 1440` and exempts the scopes that make up most of
+this graph through `minimumReleaseAgeExclude`. This matches large workspaces that exempt their own
+scopes. pnpm revalidates cached metadata for exempt packages on every range pick, and
+`--auto-dedupe` re-picks every package that has more than one locked version.
+
+These steps need network access to `https://registry.npmjs.org/`, which `.npmrc` names. Run one
+untimed warm-up with each executable first, so the metadata cache is populated. Then, for each run:
+
+1. Restore the original root `package.json` and `pnpm-lock.yaml`.
+2. In the root `package.json`, change only `@synth/pkg-03426` from `workspace:*` to `workspace:^`.
+3. Run the command below, substituting the path to the executable being measured.
+
+```sh
+time /path/to/pnpm install --lockfile-only --trust-lockfile --ignore-scripts --reporter=append-only --auto-dedupe
+```
+
+Every run should exit successfully. With `--auto-dedupe`, and separately without it, every
+executable should produce the same lockfile.
+
+Measured on 2026-09-30 on macOS arm64 with a warm metadata cache. Both executables were built with
+the same profile. Base is pnpm `main` at `d162953a1`; the candidate is the same commit plus the
+cached range metadata change. There were eight alternating runs per row, after one warm-up.
+
+| Command | Base median | Candidate median | Registry requests (base / candidate) |
+| --- | --- | --- | --- |
+| with `--auto-dedupe` | 2.46 s | 2.28 s | 223 / 0 |
+| without `--auto-dedupe` | 2.70 s | 2.18 s | 184 / 0 |
+
+Request counts came from temporary logging at the resolver's registry fetch and are not part of
+either executable. The time saved per request is small on npmjs, which answers these
+revalidations quickly. Registries that answer them slowly show a larger difference.
+
+Other notes:
+
+- The Yarn lockfile does not include these projects.
+- The earlier measurements above were taken before these projects were added.
+- The documented `--offline` commands still work once the metadata cache is warm.
+
 ## Run the workspace
 
 The repository contains the complete project tree, workspace declarations, and lockfiles. After
@@ -121,7 +172,8 @@ projects, every timed run changed its lockfile, and repeated output was determin
 
 ## Repository contents
 
-- `packages/`: all 6,832 non-root projects and their non-project directory trees;
+- `packages/`: all 6,838 non-root projects and their non-project directory trees, including the six
+  registry consumers in `packages/registry-consumers/`;
 - `package.json`: the root project and Yarn's recursive workspace declaration;
-- `pnpm-workspace.yaml`: pnpm's 784 precise workspace declarations;
+- `pnpm-workspace.yaml`: pnpm's precise workspace declarations and the release-age settings;
 - `pnpm-lock.yaml` and `yarn.lock`: deterministic package-manager inputs.
