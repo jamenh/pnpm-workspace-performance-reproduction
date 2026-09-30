@@ -120,6 +120,30 @@ cached range metadata change. There were 20 alternating runs per row, after one 
 | with `--auto-dedupe` | 2.67 s (2.53–2.94) | 2.25 s (2.20–2.44) | −16% | 223 / 0 |
 | without `--auto-dedupe` | 2.88 s (2.76–2.99) | 2.13 s (2.10–2.16) | −26% | 184 / 0 |
 
+### No-op updates
+
+A no-op needs a lockfile that `--auto-dedupe` has already converged:
+
+1. Restore the original root `package.json` and `pnpm-lock.yaml`.
+2. Run the command above once, with `--auto-dedupe` and without the manifest edit.
+3. Keep the resulting `pnpm-lock.yaml` as the no-op seed.
+
+Running `--auto-dedupe` on that seed again leaves it byte-identical. For each timed run, restore
+the seed and the original `package.json`, then run the same command without any manifest edit.
+
+Measured on 2026-09-30 with the same executables and method as above, 20 alternating runs per row.
+All 80 runs left the lockfile byte-identical.
+
+| Command | Base median (p25–p75) | Candidate median (p25–p75) |
+| --- | --- | --- |
+| without `--auto-dedupe` | 0.62 s (0.62–0.64) | 0.62 s (0.61–0.64) |
+| with `--auto-dedupe` | 2.74 s (2.52–2.84) | 2.31 s (2.24–2.46) |
+
+Without `--auto-dedupe`, pnpm sees that the lockfile is up to date and returns without resolving.
+With it, every run resolves the whole graph again, even when nothing changes, and costs about 3.7
+times as much after the change. The change removes the registry revalidation from that resolution;
+it does not skip the resolution itself.
+
 Request counts came from temporary logging at the resolver's registry fetch and are not part of
 either executable. The time saved per request is small on npmjs, which answers these
 revalidations quickly. Registries that answer them slowly show a larger difference.
