@@ -157,26 +157,28 @@ it does not skip the resolution itself.
 ### Skipping the resolution on a deduplicated lockfile
 
 A second change lets pnpm skip that resolution. After an install with `--auto-dedupe` writes the
-lockfile, it records a digest of the lockfile, every project manifest and the settings in pnpm's
-cache directory. A later `--lockfile-only` install whose digests match takes the up-to-date path.
-Any other install resolves as before. The lockfile does not change.
+lockfile, it records a digest of the lockfile, every project manifest, the settings and the local
+packages the lockfile resolves in pnpm's cache directory. A later `--lockfile-only` install whose
+digests match takes the up-to-date path. Any other install resolves as before. The lockfile does not
+change.
 
-Measured on 2026-09-30 with three executables built from pnpm v12.7.0 with the same profile:
-v12.7.0 itself, v12.7.0 plus the cached range metadata change, and both plus the record. v12.7.0
-predates a pnpm 12.8 change that makes some no-op installs resolve. Each row has 20 alternating runs
-after one warm-up, which also writes the record. The no-op rows use the converged seed described
-above; the update rows use the README's edit on the committed lockfile. Every row left one lockfile
-across all three executables.
+Measured on 2026-10-01 with three executables built from pnpm `main` at `a44e9079e` with the same
+profile: `main` itself, `main` plus the cached range metadata change, and both plus the record. Each
+row has 20 alternating runs after one warm-up, which also writes the record. The no-op rows use the
+converged seed described above; the update rows use the README's edit on the committed lockfile.
+Every row left one lockfile across all three executables.
 
-| Command | v12.7.0 | + cached range metadata | + record |
+| Command | `main` | + cached range metadata | + record |
 | --- | --- | --- | --- |
-| no-op, with `--auto-dedupe` | 2.52 s | 2.11 s | 0.59 s |
-| no-op, without `--auto-dedupe` | 0.59 s | 0.59 s | 0.58 s |
-| update, with `--auto-dedupe` | 2.53 s | 2.17 s | 2.20 s |
-| update, without `--auto-dedupe` | 2.76 s | 2.09 s | 2.11 s |
+| no-op, with `--auto-dedupe` | 2.56 s | 2.20 s | 0.75 s |
+| no-op, without `--auto-dedupe` | 0.73 s | 0.73 s | 0.74 s |
+| update, with `--auto-dedupe` | 2.78 s | 2.22 s | 2.31 s |
+| update, without `--auto-dedupe` | 3.31 s | 2.30 s | 2.31 s |
 
 With the record, a no-op with `--auto-dedupe` costs the same as one without it. Updates still
-resolve, so the record does not change their cost beyond its digests, about 23 ms here.
+resolve, so the record does not change their cost beyond its digests, about 20 ms here. Another
+build was running on the machine during these runs, so the absolute times are higher and more
+spread out than on an idle machine; the executables alternated within each round.
 
 ## Run the workspace
 
