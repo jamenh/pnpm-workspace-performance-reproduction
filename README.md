@@ -154,6 +154,30 @@ With it, every run resolves the whole graph again, even when nothing changes, an
 times as much after the change. The change removes the registry revalidation from that resolution;
 it does not skip the resolution itself.
 
+### Skipping the resolution on a deduplicated lockfile
+
+A second change lets pnpm skip that resolution. After an install with `--auto-dedupe` writes the
+lockfile, it records a digest of the lockfile, every project manifest and the settings in pnpm's
+cache directory. A later `--lockfile-only` install whose digests match takes the up-to-date path.
+Any other install resolves as before. The lockfile does not change.
+
+Measured on 2026-09-30 with three executables built from pnpm v12.7.0 with the same profile:
+v12.7.0 itself, v12.7.0 plus the cached range metadata change, and both plus the record. v12.7.0
+predates a pnpm 12.8 change that makes some no-op installs resolve. Each row has 20 alternating runs
+after one warm-up, which also writes the record. The no-op rows use the converged seed described
+above; the update rows use the README's edit on the committed lockfile. Every row left one lockfile
+across all three executables.
+
+| Command | v12.7.0 | + cached range metadata | + record |
+| --- | --- | --- | --- |
+| no-op, with `--auto-dedupe` | 2.52 s | 2.11 s | 0.59 s |
+| no-op, without `--auto-dedupe` | 0.59 s | 0.59 s | 0.58 s |
+| update, with `--auto-dedupe` | 2.53 s | 2.17 s | 2.20 s |
+| update, without `--auto-dedupe` | 2.76 s | 2.09 s | 2.11 s |
+
+With the record, a no-op with `--auto-dedupe` costs the same as one without it. Updates still
+resolve, so the record does not change their cost beyond its digests, about 23 ms here.
+
 ## Run the workspace
 
 The repository contains the complete project tree, workspace declarations, and lockfiles. After
