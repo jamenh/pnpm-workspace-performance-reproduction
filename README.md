@@ -11,7 +11,7 @@ The topology is anonymized and contains no source code or private package names.
 
 The committed workspace has:
 
-- 6,839 projects, six of which depend on registry packages;
+- 6,839 projects, six of which depend on registry packages, plus 16 pnpm-only projects in `pnpm-only/` (see [New importers](#new-importers-each-one-rescans-every-locked-peer));
 - 785 precise pnpm workspace patterns: 784 across 17 package groups, plus one for the registry consumers;
 - 87,630 `workspace:*` dependency edges;
 - a most-shared package with 2,633 consumers;
@@ -179,6 +179,51 @@ With the record, a no-op with `--auto-dedupe` costs the same as one without it. 
 resolve, so the record does not change their cost beyond its digests, about 20 ms here. Another
 build was running on the machine during these runs, so the absolute times are higher and more
 spread out than on an idle machine; the executables alternated within each round.
+
+## New importers: each one rescans every locked peer
+
+Each workspace project that the lockfile does not list yet costs a fixed amount of resolution time,
+however few dependencies it has. In pnpm 12, an importer missing from the wanted lockfile takes its
+locked peer versions from every snapshot in the lockfile (`importer_locked_peer_versions` falls back
+to `all_locked_peer_versions` in `resolve_importer/locked_peers.rs`). That scan runs once per new
+importer, so its cost multiplies by the number of new importers.
+
+The scan is cheap on the main workspace, which has few peer-heavy registry packages. The 16
+projects in `pnpm-only/` depend on public `@atlaskit` editor packages with four combinations of
+`react`, `react-dom` and `react-intl-next`. This gives the lockfile 3,803 snapshots: 2,040 have a
+peer suffix, 47 are hashed, and 1,178 list `transitivePeerDependencies`. Yarn does not see
+`pnpm-only/`, so `yarn.lock` is unchanged. `.npmrc` keeps those scopes on the public registry.
+
+[`scripts/new-importers.sh`](scripts/new-importers.sh) adds N projects under
+`packages/new-importers/`, each depending only on `"@synth/pkg-00001": "workspace:*"`, and runs:
+
+```sh
+pnpm install --lockfile-only --trust-lockfile --prefer-offline --ignore-scripts --reporter=append-only
+```
+
+As a control, `--existing` gives N of the `pnpm-only/` projects that same dependency instead. The
+script restores the committed files after each run.
+
+```sh
+scripts/new-importers.sh /path/to/pnpm 1 2 4 8 16
+scripts/new-importers.sh /path/to/pnpm --existing 16
+```
+
+Measured with native pnpm 12.15.0 on macOS arm64 (M4 Pro), with a warm metadata cache, over 3
+rounds after a warm-up. Every run exited 0 and changed the lockfile. Median `resolve_workspace` from
+`TRACE=pacquet::install::phase=info`:
+
+| | `resolve_workspace` |
+| --- | --- |
+| 1 new importer | 4.4 s |
+| 2 new importers | 5.0 s |
+| 4 new importers | 5.8 s |
+| 8 new importers | 7.6 s |
+| 16 new importers | 11.8 s |
+| 16 existing importers gain the same dependency | 4.2 s |
+
+Each new importer adds about 0.5 s. Giving 16 existing importers the same dependency costs nothing
+extra.
 
 ## Run the workspace
 
