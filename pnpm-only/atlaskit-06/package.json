@@ -1,0 +1,24 @@
+{
+  "name": "@synth/registry-atlaskit-06",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@atlaskit/comment": "*",
+    "@atlaskit/editor-plugin-card": "*",
+    "@atlaskit/editor-plugin-code-block": "*",
+    "@atlaskit/editor-plugin-hyperlink": "*",
+    "@atlaskit/editor-plugin-insert-block": "*",
+    "@atlaskit/editor-plugin-loom": "*",
+    "@atlaskit/editor-plugin-media": "*",
+    "@atlaskit/editor-plugin-media-insert": "*",
+    "@atlaskit/editor-plugin-paste": "*",
+    "@atlaskit/editor-plugins": "*",
+    "@atlaskit/link-datasource": "*",
+    "@atlaskit/media-svg": "*",
+    "@atlaskit/renderer": "*",
+    "@atlaskit/smart-card": "*",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-intl-next": "npm:react-intl@^5.25.1"
+  }
+}

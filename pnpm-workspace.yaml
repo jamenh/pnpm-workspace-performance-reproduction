@@ -791,6 +791,7 @@ packages:
   - "packages/package-16/node-002"
   - "packages/package-16/node-003"
   - "packages/registry-consumers/*"
+  - "pnpm-only/*"
 storeDir: .pnpm-store
 enableGlobalVirtualStore: false
 pmOnFail: ignore
