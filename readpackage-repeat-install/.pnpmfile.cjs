@@ -1,10 +1,9 @@
-// Turns a `root:*` placeholder into `workspace:*`, the way a monorepo hook resolves a shorthand to
-// the version its root pins.
+// Rewrites a dependency's version range, here pointing a `*` range at the workspace package.
 module.exports = {
 	hooks: {
 		readPackage(pkg) {
-			for (const [name, range] of Object.entries(pkg.dependencies ?? {})) {
-				if (range === 'root:*') pkg.dependencies[name] = 'workspace:*';
+			if (pkg.dependencies?.['@repeat/shared'] === '*') {
+				pkg.dependencies['@repeat/shared'] = 'workspace:*';
 			}
 			return pkg;
 		},

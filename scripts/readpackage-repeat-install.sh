@@ -1,7 +1,7 @@
 #!/bin/bash
 # Installs readpackage-repeat-install/ from scratch, then reports whether each repeat install takes the
 # "Already up to date" fast path, and the reason pnpm logs when it does not. The workspace's pnpmfile
-# turns `@repeat/consumer`'s `root:*` into `workspace:*`. Restores the committed state on exit.
+# rewrites `@repeat/consumer`'s `"@repeat/shared": "*"` to `workspace:*`. Restores the committed state on exit.
 # Usage: scripts/readpackage-repeat-install.sh <pnpm executable> [--no-rewrite] [rounds]
 # --no-rewrite gives `@repeat/consumer` `workspace:*` on disk, so the hook changes nothing, as a control.
 set -uo pipefail
@@ -22,7 +22,7 @@ trap restore EXIT
 restore
 
 if [[ $mode == no-rewrite ]]; then
-	perl -pi -e 's|"root:\*"|"workspace:*"|' "$consumer"
+	perl -pi -e 's|"\@repeat/shared": "\*"|"\@repeat/shared": "workspace:*"|' "$consumer"
 fi
 
 echo "pnpm $("$pnpm" --version) mode=$mode"

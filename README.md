@@ -235,9 +235,10 @@ manifest on disk, and they never match. So every project is checked against the 
 check reads the raw manifest, whose specifier the lockfile does not record.
 
 `readpackage-repeat-install/` is a self-contained workspace with no registry dependencies. The main
-workspace can't show this: its `file:` peer fixtures rule out the fast path in every version. Its
-`.pnpmfile.cjs` turns `root:*` into `workspace:*`. `@repeat/consumer` depends on
-`"@repeat/shared": "root:*"`, and `@repeat/plain` on `"@repeat/shared": "workspace:*"`.
+workspace can't show this: its `file:` peer fixtures rule out the fast path in every version.
+`@repeat/consumer` depends on `"@repeat/shared": "*"`, and its `.pnpmfile.cjs` rewrites that version
+range to `workspace:*`. `@repeat/plain` depends on `"@repeat/shared": "workspace:*"`, which the hook
+leaves alone.
 
 [`scripts/readpackage-repeat-install.sh`](scripts/readpackage-repeat-install.sh) installs it from
 scratch, runs `pnpm install` twice more, and prints pnpm's verdict and the reason logged under
