@@ -225,11 +225,46 @@ rounds after a warm-up. Every run exited 0 and changed the lockfile. Median `res
 Each new importer adds about 0.5 s. Giving 16 existing importers the same dependency costs nothing
 extra.
 
+## Repeat installs: a `readPackage` hook disables the fast path
+
+Since pnpm 12.15.0, a repeat `pnpm install` never reports "Already up to date" when a pnpmfile
+`readPackage` hook changes a workspace project's dependency specifier. Each run does a full
+headless install instead. The install records a digest of each hooked manifest in
+`node_modules/.pnpm-workspace-state-v1.json`. The next run compares it with a digest of the raw
+manifest on disk, and they never match. So every project is checked against the lockfile, and the
+check reads the raw manifest, whose specifier the lockfile does not record.
+
+`readpackage-repeat-install/` is a self-contained workspace with no registry dependencies. The main
+workspace can't show this: its `file:` peer fixtures rule out the fast path in every version. Its
+`.pnpmfile.cjs` turns `root:*` into `workspace:*`. `@repeat/consumer` depends on
+`"@repeat/shared": "root:*"`, and `@repeat/plain` on `"@repeat/shared": "workspace:*"`.
+
+[`scripts/readpackage-repeat-install.sh`](scripts/readpackage-repeat-install.sh) installs it from
+scratch, runs `pnpm install` twice more, and prints pnpm's verdict and the reason logged under
+`TRACE=pacquet::install=debug`. As a control, `--no-rewrite` gives `@repeat/consumer`
+`workspace:*` on disk, so the hook changes nothing.
+
+```sh
+scripts/readpackage-repeat-install.sh /path/to/pnpm
+scripts/readpackage-repeat-install.sh /path/to/pnpm --no-rewrite
+```
+
+| pnpm | repeat install |
+| --- | --- |
+| 12.14.0 | Already up to date |
+| 12.16.1 | Lockfile is up to date, resolution step is skipped (reason: "a modified manifest is no longer satisfied by the lockfile") |
+| main `e7b88a6a62` | same as 12.16.1 |
+| 12.16.1, `--no-rewrite` | Already up to date |
+
+`git bisect` between 12.14.0 and 12.15.0 with this script finds
+[pnpm commit 1124edb863](https://github.com/pnpm/pnpm/commit/1124edb86378d68f51d1479b5ce55809699a613b)
+(pnpm/pnpm#17030), which records a content digest per project.
+
 ## Run the workspace
 
 The repository contains the complete project tree, workspace declarations, and lockfiles. After
-cloning, run either package manager from the repository root. There is deliberately no
-`pnpmfile.cjs`, so Yarn and pnpm resolve the same manifests without a package-manager-specific hook.
+cloning, run either package manager from the repository root. The main workspace deliberately has no
+pnpmfile, so Yarn and pnpm resolve the same manifests without a package-manager-specific hook.
 
 ```sh
 yarn install --mode update-lockfile
@@ -271,4 +306,6 @@ projects, every timed run changed its lockfile, and repeated output was determin
   registry consumers in `packages/registry-consumers/`;
 - `package.json`: the root project and Yarn's recursive workspace declaration;
 - `pnpm-workspace.yaml`: pnpm's precise workspace declarations and the release-age settings;
-- `pnpm-lock.yaml` and `yarn.lock`: deterministic package-manager inputs.
+- `pnpm-lock.yaml` and `yarn.lock`: deterministic package-manager inputs;
+- `readpackage-repeat-install/`: a separate four-project pnpm workspace with a `readPackage` hook (see
+  [Repeat installs](#repeat-installs-a-readpackage-hook-disables-the-fast-path)).
